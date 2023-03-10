@@ -1,0 +1,13 @@
+{% extends "default.html" %}
+
+{% block title %}Displaying Accounts Saved in {{ account_list.get_list_name() }}{% endblock %}
+{% block header %}Displaying Accounts Saved in List '{{ account_list.get_list_name() }}'{% endblock %}
+{% block content %}
+    <ul style="list-style-type: none">
+        {%  for account in account_list %}
+        <li>
+            {{ account }}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

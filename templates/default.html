@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Title{% endblock %}</title>
+</head>
+<body style="background-color:lightgrey; text-align: center; font-size: large;">
+    <h1>{% block header %}Header{% endblock %}</h1>
+    {% block content %}<p>Content</p>{% endblock %}
+    {% block footer %}<hr><p>Return to <a href="/menu">Menu</a>.</p>{% endblock %}
+</body>
+</html>

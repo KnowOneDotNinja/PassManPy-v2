@@ -1,0 +1,19 @@
+{% extends "default.html" %}
+
+{% block title %}PassMan - Password Manager{% endblock %}
+{% block header %}Welcome to PassMan - A Password Manager{% endblock %}
+{% block content %}
+    <p>
+        Please select an entry from the list below:
+    </p>
+    <ul style="list-style-type: none">
+        {% for choice in choices %}
+        <li><a href="{{ choice }}">{{ choices[choice] }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+{% block footer %}
+    <hr>
+    <p>
+    </p>
+{% endblock %}

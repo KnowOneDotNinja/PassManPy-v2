@@ -1,0 +1,17 @@
+{% extends "default.html" %}
+
+{% block title %}All Account Lists{% endblock %}
+{% block header %}All Account Lists{% endblock %}
+{% block content %}
+    <p>
+        These are all of the saved account lists:
+    </p>
+    <ul style="list-style-type: none">
+        {% for lst in account_lists %}
+        <li>
+            <a href="/print-account-list?account_list_name={{ lst.get_list_name() }}">
+                {{ lst.get_list_name() }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
