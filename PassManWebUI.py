@@ -69,7 +69,7 @@ class WebUI:
             "/print-all-accounts": "Display All Accounts",
             "/select-list-for-account-removal": "Remove Account From a List",
             "/get-data-for-update": "Change Password for an Account",
-            "/": "Join Two Account Lists"
+            "/select-lists-to-join": "Join Two Account Lists"
         }
 
         return render_template("menu.html", choices=choices)
@@ -185,6 +185,50 @@ class WebUI:
             )
 
         return render_template("remove_account_form.html", account_list=account_list)
+
+    @staticmethod
+    @__app.route("/select-lists-to-join")
+    def select_lists_to_join():
+        """This method directs the user to a data acquisition form"""
+
+        return render_template("join_lists_form.html", account_lists=WebUI.__account_lists)
+
+    @staticmethod
+    @__app.route("/join-lists")
+    def join_lists():
+        """This method joins two selected lists"""
+
+        list1_name = request.args["list1_name"]
+        list2_name = request.args["list2_name"]
+        list1 = WebUI.find_account_list(list1_name)
+        list2 = WebUI.find_account_list(list2_name)
+
+        if list1 is None:
+            return render_template(
+                "error.html",
+                error_message=f"There is no list named '{list1_name}' :("
+            )
+
+        if list2 is None:
+            return render_template(
+                "error.html",
+                error_message=f"There is no list named '{list2_name}' :("
+            )
+
+        # Join the lists
+        joined = list1 + list2
+
+        # Add joined list to lists and database
+        WebUI.__account_lists.append(joined)
+        AccountsList.upload(joined)
+
+        return render_template(
+            "join_success.html",
+            l1=list1_name,
+            l2=list2_name,
+            name=joined.get_list_name()
+        )
+
 
     @staticmethod
     @__app.route("/remove-account")
