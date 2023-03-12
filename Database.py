@@ -42,31 +42,31 @@ class Database:
 
         # Establish individual accounts
         red1 = {
-            "_id": "Reddit: username",
+            "_id": "Reddit: dudeguy",
             "type": "Account",
             "site": "Reddit",
             "url": "www.reddit.com",
-            "uname": "username",
+            "uname": "dudeguy",
             "pwd": "passwerd",
             "tlc": "2023-02-05"
         }
 
         red2 = {
-            "_id": "Reddit: username2",
+            "_id": "Reddit: budpal",
             "type": "Account",
             "site": "Reddit",
             "url": "www.reddit.com",
-            "uname": "username2",
+            "uname": "budpal",
             "pwd": "passwerd",
             "tlc": "2022-10-17"
         }
 
         fb = {
-            "_id": "Facebook: username",
+            "_id": "Facebook: budpal",
             "type": "TFA",
             "site": "Facebook",
             "url": "www.facebook.com",
-            "uname": "username",
+            "uname": "budpal",
             "pwd": "passwerd",
             "tlc": "2023-02-05",
             "typ": "phone alert",
@@ -74,11 +74,11 @@ class Database:
         }
 
         bank1 = {
-            "_id": "Bank 1: username",
+            "_id": "Bank 1: dudeguy",
             "type": "TFA",
             "site": "Bank 1",
             "url": "www.bank1.com",
-            "uname": "username",
+            "uname": "dudeguy",
             "pwd": "passwerd",
             "tlc": "2023-02-05",
             "typ": "phone app",
@@ -86,11 +86,11 @@ class Database:
         }
 
         bank2 = {
-            "_id": "Bank 2: username",
+            "_id": "Bank 2: dudeguy",
             "type": "TFA",
             "site": "Bank 2",
             "url": "www.bank2.com",
-            "uname": "username",
+            "uname": "dudeguy",
             "pwd": "passwerd",
             "tlc": "2023-02-05",
             "typ": "phone app",

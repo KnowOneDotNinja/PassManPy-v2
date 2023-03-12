@@ -8,7 +8,11 @@
     </p>
     <ul style="list-style-type: none">
         {% for choice in choices %}
-        <li><a href="{{ choice }}">{{ choices[choice] }}</a></li>
+
+        <li>
+            <a href="{{ choice }}">{{ choices[choice] }}</a>
+        </li>
+            ----
         {% endfor %}
     </ul>
 {% endblock %}

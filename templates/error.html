@@ -1,0 +1,9 @@
+{% extends "default.html" %}
+
+{% block title %}Error{% endblock %}
+{% block header %}Oh No! Looks like we hit a snag...{% endblock %}
+{% block content %}
+    <p>
+        {{ error_message }}
+    </p>
+{% endblock %}
