@@ -31,6 +31,21 @@ class WebUI:
         return os.urandom(6)
 
     @staticmethod
+    def find_account_list(account_list_name):
+        for account_list in WebUI.__account_lists:
+            if account_list.get_key() == account_list_name.lower():
+                return account_list
+        return None
+
+    @staticmethod
+    def find_account(account_name, account_list):
+        for account in account_list:
+            if account_name.lower() == account.get_key().lower():
+                return account
+
+        return None
+
+    @staticmethod
     @__app.route("/")
     @__app.route("/home")
     @__app.route("/index")
@@ -52,7 +67,7 @@ class WebUI:
             "/select-list-to-delete": "Delete Account List",
             "/select-list-to-print": "Print an Account List",
             "/print-all-accounts": "Display All Accounts",
-            "/index.html": "Remove Account From a List",
+            "/select-list-for-account-removal": "Remove Account From a List",
             "/get-data-for-update": "Change Password for an Account",
             "/": "Join Two Account Lists"
         }
@@ -69,7 +84,7 @@ class WebUI:
     @staticmethod
     @__app.route("/select-list-to-print")
     def select_list_to_print():
-        """This method displays a drop-down menu to allow the user to select an account list"""
+        """This method directs the user to a data acquisition form"""
 
         return render_template("print_list_form.html", account_lists=WebUI.__account_lists)
 
@@ -84,7 +99,10 @@ class WebUI:
             if acc_list.get_key() == account_list_name.lower():
                 return render_template("print_account_list.html", account_list=acc_list)
 
-        return render_template("error.html", error_message=f"There is no list named '{account_list_name}' :(")
+        return render_template(
+            "error.html",
+            error_message=f"There is no list named '{account_list_name}' :("
+        )
 
     @staticmethod
     @__app.route("/print-all-accounts")
@@ -110,7 +128,10 @@ class WebUI:
         # Check for duplicate lists
         for acc_list in WebUI.__account_lists:
             if name.lower() == acc_list.get_key():
-                return render_template("error.html", error_message=f"List '{name}' already exists :(")
+                return render_template(
+                    "error.html",
+                    error_message=f"List '{name}' already exists :("
+                )
 
         # Add new list to list of lists
         new_list = AccountsList(name, sec)
@@ -120,7 +141,6 @@ class WebUI:
         AccountsList.upload(new_list)
 
         return render_template("create_list_success.html", list_name=name, sec_factor=sec)
-
 
     @staticmethod
     @__app.route("/select-list-to-delete")
@@ -144,6 +164,59 @@ class WebUI:
         return render_template("delete_success.html", list_name=name)
 
     @staticmethod
+    @__app.route("/select-list-for-account-removal")
+    def select_list_for_account_removal():
+        """This method directs the user to a data acquisition form"""
+
+        return render_template("select_list_form.html", account_lists=WebUI.__account_lists)
+
+    @staticmethod
+    @__app.route("/select-account-to-remove")
+    def select_account_to_remove():
+        """This method directs the user to a data acquisition form"""
+
+        list_name = request.args["list_name"]
+        account_list = WebUI.find_account_list(list_name)
+
+        if account_list is None:
+            return render_template(
+                "error.html",
+                error_message=f"There is no list named '{list_name}' :("
+            )
+
+        return render_template("remove_account_form.html", account_list=account_list)
+
+    @staticmethod
+    @__app.route("/remove-account")
+    def remove_account():
+        """This method removes a selected account from a selected list"""
+        list_name = request.args["list_name"]
+        account_name = request.args["account_name"]
+
+        account_list = WebUI.find_account_list(list_name)
+        if account_list is None:
+            return render_template(
+                "error.html",
+                error_message=f"There is no list named '{list_name}' :("
+            )
+
+        account = WebUI.find_account(account_name, account_list)
+        if account is None:
+            return render_template(
+                "error.html",
+                error_message=f"There is no account named '{account_name}' :("
+            )
+
+        account_list.remove(account)
+        AccountsList.upload(account_list)
+
+        return render_template(
+            "remove_success.html",
+            account=account,
+            account_list_name=list_name
+        )
+
+    @staticmethod
     @__app.route("/get-data-for-update")
     def get_data_for_update():
         """This method directs the user to a data acquisition form"""
@@ -165,7 +238,10 @@ class WebUI:
 
                 return render_template("password_success.html", account=account_name)
 
-        return render_template("error.html", error_message=f"There is no account named {account_name} :(")
+        return render_template(
+            "error.html",
+            error_message=f"There is no account named {account_name} :("
+        )
 
     @staticmethod
     def run():

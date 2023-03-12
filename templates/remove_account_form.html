@@ -1,0 +1,24 @@
+{% extends "default.html" %}
+
+{% block title %}Remove Account from List{% endblock %}
+{% block header %}WARNING: REMOVING AN ACCOUNT FROM LIST '{{ account_list.get_list_name() }}'{% endblock %}
+{% block content %}
+    <p>
+        To proceed, select an account to remove:
+        <form method="get" action="/remove-account">
+
+            <label>
+                <select name="account_name">
+                {% for account in account_list %}
+                <option value="{{ account.get_key() }}">
+                    {{ account.get_account_name() }}: {{ account.get_account_uname() }}
+                </option>
+                {% endfor %}
+                </select>
+            </label>
+
+            <input type="hidden" value="{{ account_list.get_list_name() }}"
+                       name="list_name">
+            <button style="color: crimson" type="submit">REMOVE</button>
+        </form>
+{% endblock %}
