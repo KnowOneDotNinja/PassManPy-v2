@@ -1,0 +1,17 @@
+{% extends "default.html" %}
+
+{% block title %}All Accounts{% endblock %}
+{% block header %}All Accounts{% endblock %}
+{% block content %}
+    <p>
+        This is a list of all saved accounts:
+    </p>
+    <p>
+        {%- for account in all_accounts %}
+            <li style="list-style-type: none">
+                SITE: {{ account.get_account_name() }}, with username of '{{ account.get_account_uname() }}'
+            </li>
+            * ---- *
+        {%- endfor -%}
+    </p>
+{% endblock %}
