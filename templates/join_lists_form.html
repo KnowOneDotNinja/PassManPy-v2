@@ -1,0 +1,37 @@
+{% extends "default.html" %}
+
+{% block title %}Select Lists to Join{% endblock %}
+{% block header %}Select Lists to Join{% endblock %}
+{% block content %}
+    <p>
+        To join, select 2 lists from the dropdown menus and press the 'Join' button:
+        <form method="get" action="/join-lists">
+            <ul  style="list-style-type: none">
+                <li>
+                    <label>List #1:
+                        <select name="list1_name">
+                            {% for acc_list in account_lists %}
+                            <option value="{{ acc_list.get_list_name() }}">
+                                {{ acc_list.get_list_name() }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <<>>
+                    <label>List #2
+                        <select name="list2_name">
+                            {% for acc_list in account_lists %}
+                            <option value="{{ acc_list.get_list_name() }}">
+                                {{ acc_list.get_list_name() }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </li>
+                --------------------------------------------------
+                <li style="list-style-type: none">
+                    <button type="submit">Join</button>
+                </li>
+            </ul>
+        </form>
+{% endblock %}

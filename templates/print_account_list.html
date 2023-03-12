@@ -6,8 +6,9 @@
     <ul style="list-style-type: none">
         {%  for account in account_list %}
         <li>
-            {{ account }}
+            SITE: {{ account.get_account_name() }}, with username of '{{ account.get_account_uname() }}'
         </li>
+            * ---- *
         {% endfor %}
     </ul>
 {% endblock %}

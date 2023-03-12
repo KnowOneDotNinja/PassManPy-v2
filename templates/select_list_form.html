@@ -1,0 +1,20 @@
+{% extends "default.html" %}
+
+{% block title %}Select a List{% endblock %}
+{% block header %}WARNING: DELETING AN ACCOUNT FROM A LIST{% endblock %}
+{% block content %}
+    <p>
+        To proceed, select a list from the dropdown menu:
+        <form method="get" action="/select-account-to-remove">
+            <label>
+                <select name="list_name">
+                    {% for acc_list in account_lists %}
+                    <option value="{{ acc_list.get_list_name() }}">
+                        {{ acc_list.get_list_name() }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </label>
+            <button type="submit">Select</button>
+        </form>
+{% endblock %}
