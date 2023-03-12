@@ -1,0 +1,9 @@
+{% extends "default.html" %}
+
+{% block title %}Remove Success{% endblock %}
+{% block header %}Account Removal Success!{% endblock %}
+{% block content %}
+    <p>
+        '{{ account.get_key() }}' removed from list '{{ account_list_name }}'
+    </p>
+{% endblock %}
