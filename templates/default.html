@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>{% block title %}Title{% endblock %}</title>
 </head>
-<body style="text-align: center; font-size: large;
+<body style="text-align: center; font-size: x-large;
         background-image: url({{ url_for('static', filename='background.jpg') }})">
     <h1 style="color: midnightblue">{% block header %}Header{% endblock %}</h1>
     {% block content %}<p>Content</p>{% endblock %}
