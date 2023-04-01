@@ -4,7 +4,7 @@
 # Description:      Main UI class for web implementation of PassMan
 # Input:            Various
 # Output:           Various
-# Notes:            Need functionality for adding account and showing password
+# Notes:            Need functionality for adding account
 # *****************************************************************************
 
 from flask import Flask, render_template, request, redirect, url_for
@@ -199,7 +199,7 @@ class WebUI:
                 AccountsList.remove_list(acc_list)
 
         # Display success page
-        return render_template("delete_success.html", list_name=name)
+        return render_template("delete_list_success.html", list_name=name)
 
     @staticmethod
     @__app.route("/select-list-for-account-removal")
@@ -276,7 +276,7 @@ class WebUI:
 
         # Display success page
         return render_template(
-            "join_success.html",
+            "join_lists_success.html",
             l1=list1_name,
             l2=list2_name,
             name=joined.get_list_name()
@@ -312,7 +312,7 @@ class WebUI:
 
         # Display success page
         return render_template(
-            "remove_success.html",
+            "remove_account_success.html",
             account=account,
             account_list_name=list_name
         )
@@ -345,7 +345,7 @@ class WebUI:
 
                 # Display success page
                 return render_template(
-                    "password_success.html",
+                    "update_password_success.html",
                     account=account_name
                 )
 
