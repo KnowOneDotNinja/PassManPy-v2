@@ -45,7 +45,7 @@ class Account:
     def get_key(self):
         return self.__id
 
-    def get_pass(self):
+    def get_pwd(self):
         return self.__pwd
 
     def to_dict(self):

@@ -25,7 +25,7 @@ class PassManUI:
     def print_menu():
         """This method prints the main menu options"""
 
-        print("\nSelect from the following choices:\n")
+        print("\nPlease select from the following choices:\n")
         print("1) Display All Account Lists")
         print("2) Create New Account List")
         print("3) Delete Account List")
@@ -33,9 +33,10 @@ class PassManUI:
         print("5) Display All Accounts")
         print("6) Create New Account & Add to List")
         print("7) Remove Account From a List")
-        print("8) Change Password for an Account")
-        print("9) Join Two Account Lists")
-        print("0) Exit")
+        print("8) Show Password for an Account")
+        print("9) Change Password for an Account")
+        print("0) Join Two Account Lists")
+        print("X) Exit")
 
     @staticmethod
     def find_account(acc_list):
@@ -56,6 +57,17 @@ class PassManUI:
                     return acc
 
             return None
+
+    @staticmethod
+    def show_password():
+        """This method allows the user to view the password for a selected account"""
+        # As MongoDB offers authentication for database access, this can be safely implemented
+
+        account = PassManUI.find_account(PassManUI.__accounts)
+
+        if account is not None:
+            print(f"\nPassword for {account}: ", account.get_pwd())
+            input("\nPress <Enter> to continue: ")
 
     @staticmethod
     def change_passwd():
@@ -316,11 +328,14 @@ class PassManUI:
 
         PassManUI.__accounts, PassManUI.__account_lists = AccountsList.fetch_data()
 
+        print("Welcome to PassMan - a Password Manager")
+        print("=======================================")
+
         while True:
             PassManUI.print_menu()
 
             # Get and validate menu choice
-            choice = validate.select_item(choices=["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+            choice = validate.select_item(choices=["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "x", "X"],
                                           prompt=">> ")
             if choice == "1":
                 PassManUI.print_lists()
@@ -337,10 +352,12 @@ class PassManUI:
             elif choice == "7":
                 PassManUI.remove_account()
             elif choice == "8":
-                PassManUI.change_passwd()
+                PassManUI.show_password()
             elif choice == "9":
-                PassManUI.join()
+                PassManUI.change_passwd()
             elif choice == "0":
+                PassManUI.join()
+            elif choice == "x" or choice == "X":
                 print("Thank you for using Password Manager!")
                 break
 
