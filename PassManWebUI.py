@@ -77,6 +77,7 @@ class WebUI:
             "/select-list-to-print": "Print an Account List",
             "/print-all-accounts": "Display All Accounts",
             "/select-list-for-account-removal": "Remove Account From a List",
+            "/display-authentication": "Display Password for an Account",
             "/get-data-for-update": "Change Password for an Account",
             "/select-lists-to-join": "Join Two Account Lists"
         }
@@ -316,6 +317,12 @@ class WebUI:
             account=account,
             account_list_name=list_name
         )
+
+    # TODO: FINISH OUT THIS METHOD AND RELATED RESOURCES
+    @staticmethod
+    @__app.route("/display-authentication")
+    def display_authentication():
+        return render_template("under_construction.html")
 
     @staticmethod
     @__app.route("/get-data-for-update")
